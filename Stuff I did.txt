@@ -29,3 +29,10 @@ ErgonomicDevices 17,
 Gender 18, 
 SexualOrientation 19, 
 RaceEthnicity 20
+
+Stuff to do:
+Bagging (build tons of simple models) (random forest in book)
+parser for visualization
+tone down print statements on printout
+Bin salary 
+Get rid of respondent number and other possibly unique values
