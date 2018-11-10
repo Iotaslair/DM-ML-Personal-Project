@@ -48,6 +48,7 @@ public class Main {
 		//Scanner reader = new Scanner(System.in);
 		//String csvFile = "";
 		int pruningLimit = 15;
+		int base = 6;
 		/*
 		System.out.println("Please put in the directory of the CSV including filename.csv");
 		System.out.println("For me it is in the directory /Users/Me/A3/dm_a3/data/ID3Data.csv");
@@ -114,7 +115,7 @@ public class Main {
 		*/
 		
 		
-	    Tree<String> finished = DTL(database,features,true,"JobSatisfaction", pruningLimit);
+	    Tree<String> finished = DTL(database,features,true,"JobSatisfaction", pruningLimit, base);
 	    System.out.println();
 		//finished.print();
 		 
@@ -130,7 +131,7 @@ public class Main {
 	
 	
 	//The decision tree learner. This is the code Doucette gave us
-	static Tree<String> DTL(ArrayList<ArrayList<String>> examples, ArrayList<String> attributes,boolean defaultBool, String Class, int prune)
+	static Tree<String> DTL(ArrayList<ArrayList<String>> examples, ArrayList<String> attributes,boolean defaultBool, String Class, int prune, int base)
 	{
 		//if examples is empty return a tree with default value
 		if(examples.isEmpty())
@@ -166,7 +167,7 @@ public class Main {
 		}
 		
 		//chooses the best attribute to split on based on information gain
-		String best = chooseAttribute(examples,attributes,Class);
+		String best = chooseAttribute(examples,attributes,Class, base);
 		System.out.println("Printing out best attribute " + best);
 		//make a empty tree 
 		Tree<String> tree= makeTree(best);
@@ -182,7 +183,7 @@ public class Main {
 			//takes out best from the features the tree can split on 
 			ArrayList<String> smaller = funct4(attributes, best);
 			//System.out.println("Going a level deeper");
-			Tree<String> subtree = DTL(careAbout,smaller,mean,Class, prune);
+			Tree<String> subtree = DTL(careAbout,smaller,mean,Class, prune,base);
 			//System.out.println("Returned from the deeper level");
 			//attaches the subtree we just made to our tree
 			tree = attachTree(tree,subtree,x);
@@ -352,7 +353,7 @@ public class Main {
 	}
 		
 	//Uses Information gain to calculate what the best attribute is
-	static String chooseAttribute(ArrayList<ArrayList<String>> examples, ArrayList<String> attributes,String Class) 
+	static String chooseAttribute(ArrayList<ArrayList<String>> examples, ArrayList<String> attributes,String Class, int base) 
 	{
 		String rtn = "";
 		double best = -1.0;
@@ -370,15 +371,18 @@ public class Main {
 			
 			if(semicolon.contains(attribute))
 			{
+				System.out.println("Running " + attribute + " through semicolon things");
 				HashMap<String,ArrayList<String>> temp = createDict(examples);
 				for(String x : temp.get(attribute))
 				{
-					ArrayList<ArrayList<String>> careAbout = funct3(examples, attribute,x);
-					
+					ArrayList<ArrayList<String>> careAbout = funct3Semi(examples, attribute,x);
+					//System.out.println("Creating dictionary for " + x + " " + careAbout);
 					subset.add(careAbout);
 				}
-
-				gains.put(attribute,informationGainSemicolon(examples,subset,attribute,Class,temp));
+				
+				//System.out.println(attribute + " " + informationGainSemicolon(examples,subset,attribute,Class,temp));
+				//System.out.println();
+				gains.put(attribute,informationGainSemicolon(examples,subset,attribute,Class,temp,base));
 			}
 			else
 			{
@@ -393,7 +397,7 @@ public class Main {
 					subset.add(careAbout);
 				}
 				//adds the string and its information gain value to the dictionary gains 
-				gains.put(attribute,informationGain(examples, subset, attribute,Class));
+				gains.put(attribute,informationGain(examples, subset, attribute,Class,base));
 			}
 		}
 		
@@ -402,19 +406,36 @@ public class Main {
 		//chooses highest information gain
 		for(int i = 0; i < gains.size(); i++)
 		{
-			System.out.println(attributes.get(i) + " " + gains.get(attributes.get(i)));
+			System.out.println("Information gain for " + fakeAttributes.get(i) + " " + gains.get(fakeAttributes.get(i)));
 			if( gains.get(fakeAttributes.get(i)) > best)
 			{
 				best = gains.get(fakeAttributes.get(i));
 				rtn = fakeAttributes.get(i);
 			}
 		}
+		System.out.println();
 		//returns the string with the highest information gain
 		return rtn;
 	}
 	
+	static ArrayList<ArrayList<String>> funct3Semi(ArrayList<ArrayList<String>> examples, String best, String x)
+	{
+		ArrayList<ArrayList<String>> rtn = new ArrayList<ArrayList<String>>();
+		int place = getIntForAttribute(best);
+		
+		for(ArrayList<String> outerGuy : examples)
+		{
+			if(outerGuy.get(place).contains(x))
+			{
+				rtn.add(outerGuy);
+			}
+		}
+		return rtn;
+	}
+	
+	
 	// returns a double for the information gain
-	static double informationGainSemicolon(ArrayList<ArrayList<String>> inFirst, ArrayList<ArrayList<ArrayList<String>>> Databases, String column, String Class, HashMap<String,ArrayList<String>> dict)
+	static double informationGainSemicolon(ArrayList<ArrayList<String>> inFirst, ArrayList<ArrayList<ArrayList<String>>> Databases, String column, String Class, HashMap<String,ArrayList<String>> dict,int base)
 	//								database essentially
 	{
 		//calculates the entropy of the full set
@@ -429,8 +450,8 @@ public class Main {
 		{
 			temp.add(funct5(inFirst,Class, x));
 		}
-		top = informationContent(temp);
-		
+		top = informationContent(temp,base);
+		//System.out.println("Top " + column + " " + top);
 		//
 		int inSecondSize = 0;
 		for(ArrayList<ArrayList<String>> temp1 : Databases)
@@ -446,23 +467,28 @@ public class Main {
 			//thing to pass to information content
 			ArrayList<Double> second = new ArrayList<Double>();
 			//gets all the Strings in the subset
-			//ArrayList<String> resultFromFunct2 = funct2(subset,Class);
+			ArrayList<String> resultFromFunct2 = funct2(subset,Class);
+			//System.out.println("Subset " + subset);
+			//System.out.println("resultFromFunct2 " + resultFromFunct2);
 			//loops through the thing from above
-			for(String x : dict.get(column))
+			for(String x : resultFromFunct2)
 			{
-				second.add(funct5Semi(subset,Class, x));
+				double resultFromFunct5 = funct5(subset,Class, x);
+				second.add(resultFromFunct5);
 			}
+			//System.out.println("Probabilities for " + column + " " + second);
 			//calculates the second component of the information gain
-			bottom = bottom + ( (subset.size()/(inSecondSize * 1.0)) * informationContent(second) );
+			bottom = bottom + ( (subset.size()/(inSecondSize * 1.0)) * informationContent(second,base) );
 		}
+		System.out.println("First term in InformationGain " + column + " " + top);
+		System.out.println("Second term in InformationGain " + column + " " + bottom);
+		System.out.println();
 		rtn = top - bottom;
 		return rtn;
 	}
 	
-	
-	
 	// returns a double for the information gain
-	static double informationGain(ArrayList<ArrayList<String>> inFirst, ArrayList<ArrayList<ArrayList<String>>> Databases, String column, String Class)
+	static double informationGain(ArrayList<ArrayList<String>> inFirst, ArrayList<ArrayList<ArrayList<String>>> Databases, String column, String Class,int base)
 	//								database essentially
 	{
 		//calculates the entropy of the full set
@@ -473,11 +499,14 @@ public class Main {
 		//calculates the entropy of the first set
 		ArrayList<Double> temp = new ArrayList<Double>();
 		
+		//System.out.println(funct2(inFirst,Class));
+		
 		for(String x : funct2(inFirst,Class))
 		{
 			temp.add(funct5(inFirst,Class, x));
 		}
-		top = informationContent(temp);
+		//System.out.println("Probabilities for top " + column + " " + temp);
+		top = informationContent(temp,base);
 		
 		//
 		int inSecondSize = 0;
@@ -501,9 +530,12 @@ public class Main {
 				double resultFromFunct5 = funct5(subset,Class, x);
 				second.add(resultFromFunct5);
 			}
+			//System.out.println("Probabilities for " + column + " " + second);
 			//calculates the second component of the information gain
-			bottom = bottom + ( (subset.size()/(inSecondSize * 1.0)) * informationContent(second) );
+			bottom = bottom + ( (subset.size()/(inSecondSize * 1.0)) * informationContent(second,base) );
 		}
+		//System.out.println("First term in InformationGain " + column + " " + top);
+		//System.out.println("Second term in InformationGain " + column + " " + bottom);
 		rtn = top - bottom;
 		return rtn;
 	}
@@ -519,6 +551,8 @@ public class Main {
 			if(x.get(place).equals(careAbout))
 				rtn++;
 		}
+		//System.out.println("rtn " + rtn);
+		//System.out.println("bottom " + bottom);
 		rtn = rtn / bottom;
 		return rtn;
 	}
@@ -529,18 +563,23 @@ public class Main {
 		double rtn = 0.0;
 		double bottom = in.size();
 		int place = getIntForAttribute(column);
+		
+		System.out.println("Value we're searching for in column " + column + " funct5Semi " + careAbout);
+		
 		for(ArrayList<String> x : in)
 		{
 			if(x.get(place).contains(careAbout))
 				rtn++;
 		}
+		System.out.println("Number of times " + careAbout + " showed up in the dataset " + rtn);
+		System.out.println("bottom " + bottom);
 		rtn = rtn / bottom;
 		return rtn;
 	}
 	
 	//returns a double that measures entropy 1 = high entropy 0 = low entropy
 	//takes in a ArrayList of probabilities for each item
-	static double informationContent(ArrayList<Double> in)
+	static double informationContent(ArrayList<Double> in, int base)
 	{
 		double rtn = 0.0;
 		for(double x : in)
@@ -548,7 +587,7 @@ public class Main {
 			if(x == 0.0)
 				rtn = rtn + 0;
 			else
-				rtn = rtn + ( -x*((Math.log10(x))/Math.log10(2)));
+				rtn = rtn + ( -x*((Math.log10(x))/Math.log10(base)));
 		}
 		return rtn;
 	}
