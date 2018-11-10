@@ -16,12 +16,39 @@ public class Main {
 	//ArrayList of features that can be used thus far
 	static ArrayList<String> features = new ArrayList<String>();
 	
+	static ArrayList<String> semicolon = new ArrayList<String>();
+	static HashMap<String,ArrayList<String>> semicolonDict = new HashMap<String,ArrayList<String>>();
 	
 	public static void main(String[] args) {
-		Scanner reader = new Scanner(System.in);
-		String csvFile = "";
-		int pruningLimit = 10000;
 		
+		semicolon.add("DevType");
+		/*
+		semicolon.add("CommunicationTools");
+		semicolon.add("EducationTypes");
+		semicolon.add("SelfTaughtTypes");
+		semicolon.add("HackathonReasons");
+		semicolon.add("LanguageWorkedWith");
+		semicolon.add("LanguageDesireNextYear");
+		semicolon.add("DatabaseWorkedWith");
+		semicolon.add("DatabaseDesireNextYear");
+		semicolon.add("PlatformWorkedWith");
+		semicolon.add("PlatformDesireNextYear");
+		semicolon.add("FrameworkWorkedWith");
+		semicolon.add("FrameworkDesireNextYear");
+		semicolon.add("IDE");
+		semicolon.add("Methodology");
+		semicolon.add("VersionControl");
+		semicolon.add("AdBlockerReasons");
+		semicolon.add("ErgonomicDevices");
+		semicolon.add("Gender");
+		semicolon.add("SexualOrientation");
+		semicolon.add("RaceEthnicity");
+		*/
+		
+		//Scanner reader = new Scanner(System.in);
+		//String csvFile = "";
+		int pruningLimit = 15;
+		/*
 		System.out.println("Please put in the directory of the CSV including filename.csv");
 		System.out.println("For me it is in the directory /Users/Me/A3/dm_a3/data/ID3Data.csv");
 		csvFile = reader.nextLine();
@@ -30,7 +57,8 @@ public class Main {
 		System.out.println("a example the tree returns a node with how likely it thinks a patient will go to the appointment)");
 		System.out.println("Don't put any commas in");
 		pruningLimit = reader.nextInt();
-		reader.close();
+		*/
+		//reader.close();
 		
 		//String csvFile = "/Users/billy/Data mining/A3/dm_a3/data/PreProcessedData no unique.csv";
 		//String csvFile = "/Users/billy/Data mining/A3/dm_a3/data/PreProcessedData no unique age.csv";
@@ -38,6 +66,10 @@ public class Main {
 		//String csvFile = "/Users/billy/Data mining/A3/dm_a3/data/PreProcessedData no unique no neigh.csv"; 
 		//String csvFile = "/Users/billy/Data mining/A3/dm_a3/data/PreProcessedData 200 no unique.csv";
 		//String csvFile = "/Users/billy/Data mining/A3/dm_a3/data/PreProcessedData size 10 no unique special.csv";
+		
+		//String csvFile = "/Users/billy/Data mining/Personal-Project/data/StackOverflow Columns deleted commas deleted.csv";
+		//String csvFile = "/Users/billy/Data mining/Personal-Project/data/StackOverflow Columns deleted commas deleted 500.csv";
+		String csvFile = "/Users/billy/Data mining/Personal-Project/data/StackOverflow learn 20.csv";
 		
 		String line = "";
 		String cvsSplitBy = ",";
@@ -51,8 +83,9 @@ public class Main {
 
 		        // use comma as separator
 		        String[] row = line.split(cvsSplitBy);
-		        /*
+		        
 		        //used for printing out the rows
+		        /*
 		        for(String x : row)
 		        {
 		        	System.out.print(x + " ");
@@ -60,10 +93,8 @@ public class Main {
 		        System.out.println();
 		        */
 		        
-		        if(row[0].equals("Gender"))
-		        {
+		        if(row[0].equals("Hobby"))
 		        	addFeatures(row);
-		        }
 		        else
 		        	addDatabase(row);
 		        
@@ -72,13 +103,21 @@ public class Main {
 		    e.printStackTrace();
 		}
 		
-	    Tree<String> finished = DTL(database,features,true,"ShowedUp", pruningLimit);
+		semicolonDict = createDict(database);
+		/*
+		for(String x : semicolon)
+		{
+			//System.out.println(x);
+			System.out.println(x + " " + semicolonDict.get(x));
+		}
+		System.out.println();
+		*/
+		
+		
+	    Tree<String> finished = DTL(database,features,true,"JobSatisfaction", pruningLimit);
 	    System.out.println();
-		finished.print();
-		
-		
-		
-
+		//finished.print();
+		 
 		System.out.println("Finished");
 		//used to calculate how long it take to run the algorithm
 		long endTime = System.nanoTime();
@@ -88,6 +127,8 @@ public class Main {
 		
 	}
 
+	
+	
 	//The decision tree learner. This is the code Doucette gave us
 	static Tree<String> DTL(ArrayList<ArrayList<String>> examples, ArrayList<String> attributes,boolean defaultBool, String Class, int prune)
 	{
@@ -140,9 +181,9 @@ public class Main {
 			boolean mean = mean(careAbout,Class);
 			//takes out best from the features the tree can split on 
 			ArrayList<String> smaller = funct4(attributes, best);
-			System.out.println("Going a level deeper");
+			//System.out.println("Going a level deeper");
 			Tree<String> subtree = DTL(careAbout,smaller,mean,Class, prune);
-			System.out.println("Returned from the deeper level");
+			//System.out.println("Returned from the deeper level");
 			//attaches the subtree we just made to our tree
 			tree = attachTree(tree,subtree,x);
 		}
@@ -273,6 +314,43 @@ public class Main {
 		return null;
 	}
 	
+	static HashMap<String,ArrayList<String>> createDict(ArrayList<ArrayList<String>> database)
+	{
+		HashMap<String,ArrayList<String>> temp = new HashMap<String,ArrayList<String>>();
+		for(String x : semicolon)
+		{
+			ArrayList<String> isNull = createForDict(database,x);
+			if(!isNull.isEmpty())
+				temp.put(x, isNull);
+		}
+		return temp;
+	}
+	
+	static ArrayList<String> createForDict(ArrayList<ArrayList<String>> examples, String best)
+	{
+		int x = getIntForAttribute(best);
+		//System.out.println("Location of best " + x);
+		ArrayList<String> rtn = new ArrayList<String>();
+		//System.out.println("Examples" + examples);
+		for (ArrayList<String> loop : examples)
+		{
+			String[] special = loop.get(x).split(";");
+			for(String inLoop : special)
+			{
+				//System.out.println(inLoop);
+				if(rtn.contains(inLoop))
+				{
+					//is contained so do nothing
+				}
+				else
+				{
+					rtn.add(inLoop);
+				}
+			}
+		}
+		return rtn;
+	}
+		
 	//Uses Information gain to calculate what the best attribute is
 	static String chooseAttribute(ArrayList<ArrayList<String>> examples, ArrayList<String> attributes,String Class) 
 	{
@@ -289,32 +367,99 @@ public class Main {
 			
 			//The set of all databases with String x (defined below) in the attribute column 
 			ArrayList<ArrayList<ArrayList<String>>> subset = new ArrayList<ArrayList<ArrayList<String>>>();
-			//the set of all Strings in attribute 
-			ArrayList<String> temp = funct2(examples,attribute);
-			//loops through all values in the row attribute
-			for(String x: temp)
+			
+			if(semicolon.contains(attribute))
 			{
-				//grabs all the rows with string x in the attribute column
-				ArrayList<ArrayList<String>> careAbout = funct3(examples,attribute,x);
-				//adds careAbout to the subset 
-				subset.add(careAbout);
+				HashMap<String,ArrayList<String>> temp = createDict(examples);
+				for(String x : temp.get(attribute))
+				{
+					ArrayList<ArrayList<String>> careAbout = funct3(examples, attribute,x);
+					
+					subset.add(careAbout);
+				}
+
+				gains.put(attribute,informationGainSemicolon(examples,subset,attribute,Class,temp));
 			}
-			//adds the string and its information gain value to the dictionary gains 
-			gains.put(attribute,informationGain(examples, subset, attribute,Class));
+			else
+			{
+				//the set of all Strings in attribute 
+				ArrayList<String> temp = funct2(examples,attribute);
+				//loops through all values in the row attribute
+				for(String x: temp)
+				{
+					//grabs all the rows with string x in the attribute column
+					ArrayList<ArrayList<String>> careAbout = funct3(examples,attribute,x);
+					//adds careAbout to the subset 
+					subset.add(careAbout);
+				}
+				//adds the string and its information gain value to the dictionary gains 
+				gains.put(attribute,informationGain(examples, subset, attribute,Class));
+			}
 		}
+		
+		ArrayList<String> fakeAttributes = funct4(attributes,Class);
 		
 		//chooses highest information gain
 		for(int i = 0; i < gains.size(); i++)
 		{
-			if( gains.get(attributes.get(i)) > best)
+			System.out.println(attributes.get(i) + " " + gains.get(attributes.get(i)));
+			if( gains.get(fakeAttributes.get(i)) > best)
 			{
-				best = gains.get(attributes.get(i));
-				rtn = attributes.get(i);
+				best = gains.get(fakeAttributes.get(i));
+				rtn = fakeAttributes.get(i);
 			}
 		}
 		//returns the string with the highest information gain
 		return rtn;
 	}
+	
+	// returns a double for the information gain
+	static double informationGainSemicolon(ArrayList<ArrayList<String>> inFirst, ArrayList<ArrayList<ArrayList<String>>> Databases, String column, String Class, HashMap<String,ArrayList<String>> dict)
+	//								database essentially
+	{
+		//calculates the entropy of the full set
+		double rtn = 0.0;
+		double top = 0.0; //should have been named first but ran out of names
+		double bottom = 0.0; //same as above but for second 
+		
+		//calculates the entropy of the first set
+		ArrayList<Double> temp = new ArrayList<Double>();
+		
+		for(String x : funct2(inFirst,Class))
+		{
+			temp.add(funct5(inFirst,Class, x));
+		}
+		top = informationContent(temp);
+		
+		//
+		int inSecondSize = 0;
+		for(ArrayList<ArrayList<String>> temp1 : Databases)
+		{
+			for(ArrayList<String> temp2 : temp1)
+				inSecondSize++;
+		}
+		
+		//calculates the second part of information gain (each subset)
+		//looping through each of the subsets
+		for(ArrayList<ArrayList<String>> subset : Databases)
+		{
+			//thing to pass to information content
+			ArrayList<Double> second = new ArrayList<Double>();
+			//gets all the Strings in the subset
+			//ArrayList<String> resultFromFunct2 = funct2(subset,Class);
+			//loops through the thing from above
+			for(String x : dict.get(column))
+			{
+				second.add(funct5Semi(subset,Class, x));
+			}
+			//calculates the second component of the information gain
+			bottom = bottom + ( (subset.size()/(inSecondSize * 1.0)) * informationContent(second) );
+		}
+		rtn = top - bottom;
+		return rtn;
+	}
+	
+	
 	
 	// returns a double for the information gain
 	static double informationGain(ArrayList<ArrayList<String>> inFirst, ArrayList<ArrayList<ArrayList<String>>> Databases, String column, String Class)
@@ -327,6 +472,7 @@ public class Main {
 		
 		//calculates the entropy of the first set
 		ArrayList<Double> temp = new ArrayList<Double>();
+		
 		for(String x : funct2(inFirst,Class))
 		{
 			temp.add(funct5(inFirst,Class, x));
@@ -355,7 +501,7 @@ public class Main {
 				double resultFromFunct5 = funct5(subset,Class, x);
 				second.add(resultFromFunct5);
 			}
-			//calculates the second component of the information gain calculatino
+			//calculates the second component of the information gain
 			bottom = bottom + ( (subset.size()/(inSecondSize * 1.0)) * informationContent(second) );
 		}
 		rtn = top - bottom;
@@ -371,6 +517,21 @@ public class Main {
 		for(ArrayList<String> x : in)
 		{
 			if(x.get(place).equals(careAbout))
+				rtn++;
+		}
+		rtn = rtn / bottom;
+		return rtn;
+	}
+	
+	//returns probability of for a string x in the parameter in in a specific column column 
+	static double funct5Semi(ArrayList<ArrayList<String>> in, String column, String careAbout)
+	{
+		double rtn = 0.0;
+		double bottom = in.size();
+		int place = getIntForAttribute(column);
+		for(ArrayList<String> x : in)
+		{
+			if(x.get(place).contains(careAbout))
 				rtn++;
 		}
 		rtn = rtn / bottom;
@@ -433,191 +594,7 @@ public class Main {
 		
 		database.add(temp);
 	}
+	
+	
 }
-
-
-
-	/*
-	//code to test tree printing
-	Tree<String> tree = makeTree("one");
-	
-	Node<String> root = tree.getRoot();
-	
-	Tree<String> two = makeTree("two");
-	two.addToChildren(makeTree("three"), "Went down three path");
-	two.addToChildren(makeTree("four"), "Went down four path");
-	Tree<String> five = makeTree("five");
-	five.addToChildren(makeTree("six"), "Went down six path");
-	Tree<String> seven = makeTree("seven");
-	five.addToChildren(seven, "Went down seven path");
-	
-	root.addToChildren(two, "Went down two path");
-	root.addToChildren(five, "Went down five path");
-	
-	tree.print();
-	//seven.print();
-	System.out.println("Program over");
-	*/
-	
-	
-	//testing for funct 1
-	/*
-	ArrayList<ArrayList<String>> examples = new ArrayList<ArrayList<String>>();
-	
-	for(int i = 0; i < 5; i++)
-	{
-		ArrayList<String> weird = new ArrayList<String>();
-		for(int j = 0; j < 5; j++)
-		{
-			String temp = "" + j;
-			weird.add(temp);
-		}
-		String temp = "No";
-		weird.add(temp);
-		
-		for(String x : weird)
-		{
-			System.out.print(x + " ");
-		}
-		System.out.println();
-		
-		examples.add(weird);
-	}
-	System.out.println(funct1(examples,"No"));
-	*/
-	
-	//testing for funct2
-	/*
-	ArrayList<ArrayList<String>> examples = new ArrayList<ArrayList<String>>();
-		
-		for(int i = 0; i < 5; i++)
-		{
-			ArrayList<String> weird = new ArrayList<String>();
-			for(int j = 0; j < 5; j++)
-			{
-				String temp = "" +(int) (Math.random()*5);
-				weird.add(temp);
-			}
-			String temp = "No";
-			weird.add(temp);
-			
-			for(String x : weird)
-			{
-				System.out.print(x + " ");
-			}
-			System.out.println();
-			
-			examples.add(weird);
-		}
-		
-		
-		String[] temp = new String[5];
-		for(int i = 0; i < 5; i ++)
-		{
-			temp[i] = ""+ i;
-		}
-		addFeatures(temp);
-		System.out.println("Features" + features);
-		ArrayList<String> y = funct2(examples,"4");
-		System.out.println("funct2 " + y);
-	*/
-	
-	//testing for funct3
-	/*
-	ArrayList<ArrayList<String>> examples = new ArrayList<ArrayList<String>>();
-		
-		for(int i = 0; i < 5; i++)
-		{
-			ArrayList<String> weird = new ArrayList<String>();
-			for(int j = 0; j < 5; j++)
-			{
-				String temp = "" +(int) (Math.random()*5);
-				weird.add(temp);
-			}
-			String temp = "No";
-			weird.add(temp);
-			
-			for(String x : weird)
-			{
-				System.out.print(x + " ");
-			}
-			System.out.println();
-			
-			examples.add(weird);
-		}
-		
-		
-		String[] temp = new String[5];
-		for(int i = 0; i < 5; i ++)
-		{
-			temp[i] = ""+ i;
-		}
-		addFeatures(temp);
-		System.out.println("Features" + features);
-		System.out.println("funct2 " + funct3(examples,"1","3"));
-	*/
-	
-	//testing for Mean
-	/*
-	ArrayList<ArrayList<String>> examples = new ArrayList<ArrayList<String>>();
-	
-	for(int i = 0; i < 5; i++)
-	{
-		ArrayList<String> weird = new ArrayList<String>();
-		for(int j = 0; j < 5; j++)
-		{
-			String temp = "" +(int) (Math.random()*5);
-			weird.add(temp);
-		}
-		
-		int randomNumber = (int) (Math.random()*2);
-		String that = "";
-		if(randomNumber == 0)
-			that = "No";
-		else
-			that = "Yes";
-					
-			
-		weird.add(that);
-		
-		for(String x : weird)
-		{
-			System.out.print(x + " ");
-		}
-		System.out.println();
-		
-		examples.add(weird);
-	}
-	
-	
-	String[] temp = new String[6];
-	for(int i = 0; i < 6; i ++)
-	{
-		temp[i] = ""+ i;
-	}
-	addFeatures(temp);
-	System.out.println("Features" + features);
-	System.out.println("Result: " + mean(examples,"5"));
-	*/
-	
-	//testing for funct4
-	/*
-	String[] temp = new String[6];
-	for(int i = 0; i < 6; i ++)
-	{
-		temp[i] = ""+ i;
-	}
-	addFeatures(temp);
-	System.out.println("Features" + features);
-	System.out.println("Result: " + funct4(features,"3"));
-	*/
-	
-	//testing for calculating features 
-	/*
-	ArrayList<Double> temp = new ArrayList<Double>();
-	
-	temp.add(0.0);
-	temp.add(0.9);
-	temp.add(.1);
-	*/
 

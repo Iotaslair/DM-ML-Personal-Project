@@ -36,3 +36,6 @@ parser for visualization
 tone down print statements on printout
 Bin salary 
 Get rid of respondent number and other possibly unique values
+
+Updated: 
+Count things correctly in choose attribute
