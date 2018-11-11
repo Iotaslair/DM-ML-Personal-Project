@@ -1,0 +1,268 @@
+Node # 1: CareerSatisfaction
+Node # 1's parent: No Parents
+Node # 1 child #: 0 Hobby
+Node # 1 child #: 1 Hobby
+Node # 1 child #: 2 DevType
+Node # 1 child #: 3 Hobby
+Node # 1 child #: 4 Hobby
+Node # 1 child #: 5 NA
+Node # 1 child #: 6 Hobby
+Node # 1 child #: 7 Hobby
+Node # 1's path: null
+
+Node # 2: Hobby
+Node # 2's parent: CareerSatisfaction
+Node # 2's children: OpenSource
+Node # 2's path: Extremely satisfied
+
+Node # 3: OpenSource
+Node # 3's parent: Hobby
+Node # 3's children: DevType
+Node # 3's path: Yes
+
+Node # 4: DevType
+Node # 4's parent: OpenSource
+Node # 4's children: The algorithm expects that you have a rating of 7 for JobSatisfaction
+Node # 4's path: No
+
+Node # 5: The algorithm expects that you have a rating of 7 for JobSatisfaction
+Node # 5's parent: DevType
+Node # 5 is a leaf
+Node # 5's path: Full-stack developer
+
+Node # 6: Hobby
+Node # 6's parent: CareerSatisfaction
+Node # 6's children: OpenSource
+Node # 6's path: Neither satisfied nor dissatisfied
+
+Node # 7: OpenSource
+Node # 7's parent: Hobby
+Node # 7's children: DevType
+Node # 7's path: Yes
+
+Node # 8: DevType
+Node # 8's parent: OpenSource
+Node # 8's children: The algorithm expects that you have a rating of 2 for JobSatisfaction
+Node # 8's path: Yes
+
+Node # 9: The algorithm expects that you have a rating of 2 for JobSatisfaction
+Node # 9's parent: DevType
+Node # 9 is a leaf
+Node # 9's path: Database administrator;DevOps specialist;Full-stack developer;System administrator
+
+Node # 10: DevType
+Node # 10's parent: CareerSatisfaction
+Node # 10 child #: 0 Hobby
+Node # 10 child #: 1 Hobby
+Node # 10 child #: 2 Hobby
+Node # 10 child #: 3 Hobby
+Node # 10 child #: 4 Hobby
+Node # 10 child #: 5 Hobby
+Node # 10 child #: 6 Hobby
+Node # 10's path: Moderately satisfied
+
+Node # 11: Hobby
+Node # 11's parent: DevType
+Node # 11's children: OpenSource
+Node # 11's path: Engineering manager;Full-stack developer
+
+Node # 12: OpenSource
+Node # 12's parent: Hobby
+Node # 12's children: The algorithm expects that you have a rating of 6 for JobSatisfaction
+Node # 12's path: Yes
+
+Node # 13: The algorithm expects that you have a rating of 6 for JobSatisfaction
+Node # 13's parent: OpenSource
+Node # 13 is a leaf
+Node # 13's path: Yes
+
+Node # 14: Hobby
+Node # 14's parent: DevType
+Node # 14's children: OpenSource
+Node # 14's path: Data or business analyst;Desktop or enterprise applications developer;Game or graphics developer;QA or test developer;Student
+
+Node # 15: OpenSource
+Node # 15's parent: Hobby
+Node # 15's children: The algorithm expects that you have a rating of 5 for JobSatisfaction
+Node # 15's path: Yes
+
+Node # 16: The algorithm expects that you have a rating of 5 for JobSatisfaction
+Node # 16's parent: OpenSource
+Node # 16 is a leaf
+Node # 16's path: No
+
+Node # 17: Hobby
+Node # 17's parent: DevType
+Node # 17's children: OpenSource
+Node # 17's path: Back-end developer;Front-end developer;Full-stack developer
+
+Node # 18: OpenSource
+Node # 18's parent: Hobby
+Node # 18's children: The algorithm expects that you have a rating of 5 for JobSatisfaction
+Node # 18's path: Yes
+
+Node # 19: The algorithm expects that you have a rating of 5 for JobSatisfaction
+Node # 19's parent: OpenSource
+Node # 19 is a leaf
+Node # 19's path: Yes
+
+Node # 20: Hobby
+Node # 20's parent: DevType
+Node # 20's children: OpenSource
+Node # 20's path: Designer;Front-end developer;QA or test developer
+
+Node # 21: OpenSource
+Node # 21's parent: Hobby
+Node # 21's children: The algorithm expects that you have a rating of 5 for JobSatisfaction
+Node # 21's path: Yes
+
+Node # 22: The algorithm expects that you have a rating of 5 for JobSatisfaction
+Node # 22's parent: OpenSource
+Node # 22 is a leaf
+Node # 22's path: Yes
+
+Node # 23: Hobby
+Node # 23's parent: DevType
+Node # 23's children: OpenSource
+Node # 23's path: Back-end developer;C-suite executive (CEO  CTO  etc.);Data or business analyst;Database administrator;DevOps specialist;Engineering manager;Full-stack developer;System administrator
+
+Node # 24: OpenSource
+Node # 24's parent: Hobby
+Node # 24's children: The algorithm expects that you have a rating of 6 for JobSatisfaction
+Node # 24's path: Yes
+
+Node # 25: The algorithm expects that you have a rating of 6 for JobSatisfaction
+Node # 25's parent: OpenSource
+Node # 25 is a leaf
+Node # 25's path: Yes
+
+Node # 26: Hobby
+Node # 26's parent: DevType
+Node # 26's children: OpenSource
+Node # 26's path: Back-end developer;Full-stack developer
+
+Node # 27: OpenSource
+Node # 27's parent: Hobby
+Node # 27's children: The algorithm expects that you have a rating of 7 for JobSatisfaction
+Node # 27's path: No
+
+Node # 28: The algorithm expects that you have a rating of 7 for JobSatisfaction
+Node # 28's parent: OpenSource
+Node # 28 is a leaf
+Node # 28's path: No
+
+Node # 29: Hobby
+Node # 29's parent: DevType
+Node # 29's children: OpenSource
+Node # 29's path: Back-end developer
+
+Node # 30: OpenSource
+Node # 30's parent: Hobby
+Node # 30's children: The algorithm expects that you have a rating of 6 for JobSatisfaction
+Node # 30's path: Yes
+
+Node # 31: The algorithm expects that you have a rating of 6 for JobSatisfaction
+Node # 31's parent: OpenSource
+Node # 31 is a leaf
+Node # 31's path: No
+
+Node # 32: Hobby
+Node # 32's parent: CareerSatisfaction
+Node # 32's children: OpenSource
+Node # 32's path: Slightly dissatisfied
+
+Node # 33: OpenSource
+Node # 33's parent: Hobby
+Node # 33's children: DevType
+Node # 33's path: No
+
+Node # 34: DevType
+Node # 34's parent: OpenSource
+Node # 34's children: The algorithm expects that you have a rating of 4 for JobSatisfaction
+Node # 34's path: No
+
+Node # 35: The algorithm expects that you have a rating of 4 for JobSatisfaction
+Node # 35's parent: DevType
+Node # 35 is a leaf
+Node # 35's path: Full-stack developer
+
+Node # 36: Hobby
+Node # 36's parent: CareerSatisfaction
+Node # 36's children: OpenSource
+Node # 36's path: Slightly satisfied
+
+Node # 37: OpenSource
+Node # 37's parent: Hobby
+Node # 37's children: DevType
+Node # 37's path: Yes
+
+Node # 38: DevType
+Node # 38's parent: OpenSource
+Node # 38's children: The algorithm expects that you have a rating of 6 for JobSatisfaction
+Node # 38's path: No
+
+Node # 39: The algorithm expects that you have a rating of 6 for JobSatisfaction
+Node # 39's parent: DevType
+Node # 39 is a leaf
+Node # 39's path: Back-end developer;Database administrator;Front-end developer;Full-stack developer
+
+Node # 40: NA
+Node # 40's parent: CareerSatisfaction
+Node # 40 is a leaf
+Node # 40's path: NA
+
+Node # 41: Hobby
+Node # 41's parent: CareerSatisfaction
+Node # 41 child #: 0 OpenSource
+Node # 41 child #: 1 OpenSource
+Node # 41's path: Moderately dissatisfied
+
+Node # 42: OpenSource
+Node # 42's parent: Hobby
+Node # 42's children: DevType
+Node # 42's path: Yes
+
+Node # 43: DevType
+Node # 43's parent: OpenSource
+Node # 43's children: The algorithm expects that you have a rating of 2 for JobSatisfaction
+Node # 43's path: No
+
+Node # 44: The algorithm expects that you have a rating of 2 for JobSatisfaction
+Node # 44's parent: DevType
+Node # 44 is a leaf
+Node # 44's path: Back-end developer;Database administrator;Mobile developer;System administrator
+
+Node # 45: OpenSource
+Node # 45's parent: Hobby
+Node # 45's children: DevType
+Node # 45's path: No
+
+Node # 46: DevType
+Node # 46's parent: OpenSource
+Node # 46's children: The algorithm expects that you have a rating of 4 for JobSatisfaction
+Node # 46's path: No
+
+Node # 47: The algorithm expects that you have a rating of 4 for JobSatisfaction
+Node # 47's parent: DevType
+Node # 47 is a leaf
+Node # 47's path: Back-end developer;Front-end developer;Student
+
+Node # 48: Hobby
+Node # 48's parent: CareerSatisfaction
+Node # 48's children: OpenSource
+Node # 48's path: Extremely dissatisfied
+
+Node # 49: OpenSource
+Node # 49's parent: Hobby
+Node # 49's children: DevType
+Node # 49's path: Yes
+
+Node # 50: DevType
+Node # 50's parent: OpenSource
+Node # 50's children: The algorithm expects that you have a rating of 2 for JobSatisfaction
+Node # 50's path: No
+
+Node # 51: The algorithm expects that you have a rating of 2 for JobSatisfaction
+Node # 51's parent: DevType
+Node # 51 is a leaf
+Node # 51's path: Full-stack developer

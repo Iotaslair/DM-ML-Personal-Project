@@ -37,5 +37,14 @@ tone down print statements on printout
 Bin salary 
 Get rid of respondent number and other possibly unique values
 
-Updated: 
-Count things correctly in choose attribute
+UpToDate:
+Got rid of columns that deal with assessing job aspects, job benefits, email priorities at the job, AdsAgreeDisagree1, AdsAgreeDisagree2, AdsAgreeDisagree3, AdsActions, AdsPriorities1, AdsPriorities2, AdsPriorities3, AdsPriorities4, AdsPriorities5, AdsPriorities6, AdsPriorities7, questions if you like/recommend/want tools for StackOverflow, surveyTooLong, SurveyEasy
+Got rid of all commas in the csv and replaced it with spaces, so in java it doesn't get messed up
+Changed Version control "I don't use version control" to "NA"
+Created functions to calculate the mean score
+Got rid of Salary, SalaryType, CurrencySymbol because it complicated the data
+
+To Do:
+Write visualizer
+Bin salary
+Write function that checks if examples is empty

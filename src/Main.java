@@ -22,7 +22,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		semicolon.add("DevType");
-		/*
+		
 		semicolon.add("CommunicationTools");
 		semicolon.add("EducationTypes");
 		semicolon.add("SelfTaughtTypes");
@@ -43,12 +43,14 @@ public class Main {
 		semicolon.add("Gender");
 		semicolon.add("SexualOrientation");
 		semicolon.add("RaceEthnicity");
-		*/
+		
 		
 		//Scanner reader = new Scanner(System.in);
 		//String csvFile = "";
-		int pruningLimit = 15;
+		int pruningLimit = 0;
 		int base = 6;
+		int currLevel = 0;
+		int maxLevel = 4;
 		/*
 		System.out.println("Please put in the directory of the CSV including filename.csv");
 		System.out.println("For me it is in the directory /Users/Me/A3/dm_a3/data/ID3Data.csv");
@@ -68,14 +70,15 @@ public class Main {
 		//String csvFile = "/Users/billy/Data mining/A3/dm_a3/data/PreProcessedData 200 no unique.csv";
 		//String csvFile = "/Users/billy/Data mining/A3/dm_a3/data/PreProcessedData size 10 no unique special.csv";
 		
-		//String csvFile = "/Users/billy/Data mining/Personal-Project/data/StackOverflow Columns deleted commas deleted.csv";
+		//String csvFile = "/Users/billy/Data mining/Personal-Project/data/StackOverflow Columns deleted commas deleted jobSatisfaction changed Salary.csv";
+		String csvFile = "/Users/billy/eclipse-workspace/Personal Project/Salary Changed.csv";
 		//String csvFile = "/Users/billy/Data mining/Personal-Project/data/StackOverflow Columns deleted commas deleted 500.csv";
-		String csvFile = "/Users/billy/Data mining/Personal-Project/data/StackOverflow learn 20.csv";
+		//String csvFile = "/Users/billy/Data mining/Personal-Project/data/StackOverflow learn 20.csv";
 		
 		String line = "";
 		String cvsSplitBy = ",";
-		System.out.println("Starting to make your tree");
-		System.out.println();
+		
+		
 		long startTime = System.nanoTime();
 
 		try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
@@ -114,10 +117,11 @@ public class Main {
 		System.out.println();
 		*/
 		
-		
-	    Tree<String> finished = DTL(database,features,true,"JobSatisfaction", pruningLimit, base);
+		System.out.println("Starting to make your tree");
+		System.out.println();
+	    Tree<String> finished = DTL(database,features,"NA","JobSatisfaction", pruningLimit, base, currLevel, maxLevel);
 	    System.out.println();
-		//finished.print();
+		finished.print();
 		 
 		System.out.println("Finished");
 		//used to calculate how long it take to run the algorithm
@@ -131,39 +135,50 @@ public class Main {
 	
 	
 	//The decision tree learner. This is the code Doucette gave us
-	static Tree<String> DTL(ArrayList<ArrayList<String>> examples, ArrayList<String> attributes,boolean defaultBool, String Class, int prune, int base)
+	static Tree<String> DTL(ArrayList<ArrayList<String>> examples, ArrayList<String> attributes,String defaultValue, String Class, int prune, int base, int currLevel, int maxLevel)
 	{
+		currLevel++;
+		//stops a tree from expanding too far
+		if(currLevel > maxLevel)
+		{
+			return makeTree(atEnd(examples,Class));
+		}
+		
 		//if examples is empty return a tree with default value
 		if(examples.isEmpty())
 		{
-			String boolString = "";
-			if(defaultBool)
-				boolString = "Yes";
-			else
-				boolString = "No";
-			return makeTree(boolString);
+			return makeTree(defaultValue);
 		}
 		
-		//if examples is made up of people who only went to the Dr.
-		if(funct1(examples,"Yes"))
-			return makeTree("Yes");
-		
-		//if examples is made up only of people who didn't go to the Dr.
-		if(funct1(examples,"No"))
-			return makeTree("No");
+		if(funct1(examples,"0"))
+			return makeTree("0");
+		if(funct1(examples,"1"))
+			return makeTree("1");
+		if(funct1(examples,"2"))
+			return makeTree("2");
+		if(funct1(examples,"3"))
+			return makeTree("3");
+		if(funct1(examples,"4"))
+			return makeTree("4");
+		if(funct1(examples,"5"))
+			return makeTree("5");
+		if(funct1(examples,"6"))
+			return makeTree("6");
+		if(funct1(examples,"7"))
+			return makeTree("7");
+		if(funct1(examples,"NA"))
+			return makeTree("NA");
 		
 		//if we run out of features to split on then output how likely it is that the patient showed up to the appointment
-		if(attributes.get(0).equals(Class))
+		if(checkIfEmpty(attributes,Class))
 		{
-			DecimalFormat df = new DecimalFormat("####.##");
-			return makeTree("" + df.format(specialMean(examples,Class))  +"% that the patient showed up to the appointment");
+			return makeTree(atEnd(examples,Class));
 		}
 		
 		//if examples is less than the pruning limit then return how likely it is that the patient showed up to the appointment
 		if(examples.size() < prune)
 		{
-			DecimalFormat df = new DecimalFormat("####.##");
-			return makeTree("" + df.format(specialMean(examples,Class))  +"% that the patient showed up to the appointment");
+			return makeTree(atEnd(examples,Class));
 		}
 		
 		//chooses the best attribute to split on based on information gain
@@ -179,17 +194,67 @@ public class Main {
 			//gets all the rows that have String x in the best column
 			ArrayList<ArrayList<String>> careAbout = funct3(examples,best,x);
 			//used for the default value when recursing 
-			boolean mean = mean(careAbout,Class);
+			String mean = meanForJobs(careAbout,Class);
 			//takes out best from the features the tree can split on 
 			ArrayList<String> smaller = funct4(attributes, best);
-			//System.out.println("Going a level deeper");
-			Tree<String> subtree = DTL(careAbout,smaller,mean,Class, prune,base);
-			//System.out.println("Returned from the deeper level");
+			System.out.println("Going a level deeper");
+			Tree<String> subtree = DTL(careAbout,smaller,mean,Class, prune,base, currLevel, maxLevel);
+			System.out.println("Returned from the deeper level");
 			//attaches the subtree we just made to our tree
 			tree = attachTree(tree,subtree,x);
 		}
 		return tree;
 	}
+	
+	static boolean checkIfEmpty(ArrayList<String> attributes, String Class)
+	{
+		ArrayList<String> temp = funct4(attributes,Class);
+		return temp.isEmpty();
+	}
+	
+	
+	static String atEnd(ArrayList<ArrayList<String>> careAbout,String Class)
+	{
+		String rtn = "";
+		int value = 0;
+		int bottom = 0;
+		int place = getIntForAttribute(Class); //place of the class (counting from 0)
+		for(ArrayList<String> x : careAbout)
+		{
+			if(!x.get(place).equals("NA"))
+			{
+				value = value + Integer.parseInt(x.get(place));
+				bottom++;
+			}
+		}
+		if(bottom == 0)
+			return "The algorithm expects that you have a rating of " + 0 + " for " + Class;
+		rtn = "The algorithm expects that you have a rating of " + (int)value/bottom + " for " + Class;
+		
+		return rtn;
+	}
+	
+	static String meanForJobs(ArrayList<ArrayList<String>> careAbout,String Class)
+	{
+		String rtn = "";
+		int value = 0;
+		int bottom = 0;
+		int place = getIntForAttribute(Class); //place of the class (counting from 0)
+		//System.out.println("careAbout in meanForJobs " + careAbout);
+		for(ArrayList<String> x : careAbout)
+		{
+			if(!x.get(place).equals("NA"))
+			{
+				value = value + Integer.parseInt(x.get(place));
+				bottom++;
+			}
+		}
+		if(bottom == 0)
+			return "" + 0;
+		rtn = "" + (int) (value/bottom);
+		return rtn;
+	}
+	
 	
 	//returns true if all elements in examples match the string thing (will be either 'Yes' or 'No')
 	//called to check if all of the examples are made up of thing values
@@ -371,7 +436,7 @@ public class Main {
 			
 			if(semicolon.contains(attribute))
 			{
-				System.out.println("Running " + attribute + " through semicolon things");
+				//System.out.println("Running " + attribute + " through semicolon things");
 				HashMap<String,ArrayList<String>> temp = createDict(examples);
 				for(String x : temp.get(attribute))
 				{
@@ -406,14 +471,14 @@ public class Main {
 		//chooses highest information gain
 		for(int i = 0; i < gains.size(); i++)
 		{
-			System.out.println("Information gain for " + fakeAttributes.get(i) + " " + gains.get(fakeAttributes.get(i)));
+			//System.out.println("Information gain for " + fakeAttributes.get(i) + " " + gains.get(fakeAttributes.get(i)));
 			if( gains.get(fakeAttributes.get(i)) > best)
 			{
 				best = gains.get(fakeAttributes.get(i));
 				rtn = fakeAttributes.get(i);
 			}
 		}
-		System.out.println();
+		//System.out.println();
 		//returns the string with the highest information gain
 		return rtn;
 	}
@@ -432,7 +497,6 @@ public class Main {
 		}
 		return rtn;
 	}
-	
 	
 	// returns a double for the information gain
 	static double informationGainSemicolon(ArrayList<ArrayList<String>> inFirst, ArrayList<ArrayList<ArrayList<String>>> Databases, String column, String Class, HashMap<String,ArrayList<String>> dict,int base)
@@ -480,9 +544,9 @@ public class Main {
 			//calculates the second component of the information gain
 			bottom = bottom + ( (subset.size()/(inSecondSize * 1.0)) * informationContent(second,base) );
 		}
-		System.out.println("First term in InformationGain " + column + " " + top);
-		System.out.println("Second term in InformationGain " + column + " " + bottom);
-		System.out.println();
+		//System.out.println("First term in InformationGain " + column + " " + top);
+		//System.out.println("Second term in InformationGain " + column + " " + bottom);
+		//System.out.println();
 		rtn = top - bottom;
 		return rtn;
 	}
