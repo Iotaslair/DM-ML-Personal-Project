@@ -3,7 +3,7 @@ BufferedReader reader;
 String line;
 ArrayList<Node> nodes = new ArrayList<Node>();
 
-/*
+
 Node SMS = new Node("SMS_Received", 0,1,1,"na");
 Node Age1 = new Node("Age", 1,2,1,"No");
 Node App1 = new Node("ApptDay", 2,9,1,"50-74");
@@ -45,10 +45,11 @@ Node Node39 = new Node("77.86%", 5, 6, 4, "Thursday");
 Node Node40 = new Node("80.21%", 5,6,5,"Wednesday");
 Node Node41 = new Node("74.73%", 5, 6, 6, "Saturday");
 Node Node42 = new Node("74.43%", 4, 2, 2, "Yes");
-*/
+
 void setup(){
   background(255,255,255);
   size(1400,500,PDF, "ID3Tree.pdf");
+  /*
   reader = createReader("Parse Tester.txt");
   try
   {
@@ -65,11 +66,12 @@ void setup(){
     line = null;
   }
   
-Node makeNode(String in)
-{
+  Node makeNode(String in)
+  {
+    
+  }
+  */
   
-}
-  /*
   SMS.make();
   Age1.make();
   App1.make();
@@ -151,5 +153,5 @@ Node makeNode(String in)
   Gen.makeLine(Node28);
   Gen.makeLine(Node29);
   Age1.makeLine(App3);
-  */
+  
 }

@@ -9,7 +9,7 @@ class Node {
     float top;
     String name;
     float mod;
-    
+          
     Node (String nm, float g, float gm, float nn, String pt) {  
     gen = g;
     mod = nn/(gm+1);
@@ -27,12 +27,10 @@ class Node {
       if(this.genmax>15){
           fill(180);
           this.xpos -= 10;
-          fill(180);
           ellipseMode(CENTER);
           ellipse(this.xpos, this.ypos, 50, 30);
-          fill(50);
           textAlign(CENTER);
-          textSize(10);
+          
           fill(20);
           text(this.name, this.xpos, this.ypos+5);
         }
@@ -40,8 +38,8 @@ class Node {
           fill(180);
           ellipseMode(CENTER);
           ellipse(this.xpos, this.ypos, 75, 30);
-          fill(50);
           textAlign(CENTER);
+          textSize(10);
           fill(20);
           text(this.name, this.xpos, this.ypos+5);
         }

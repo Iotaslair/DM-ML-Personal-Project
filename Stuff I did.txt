@@ -42,11 +42,13 @@ Got rid of columns that deal with assessing job aspects, job benefits, email pri
 Got rid of all commas in the csv and replaced it with spaces, so in java it doesn't get messed up
 Changed Version control "I don't use version control" to "NA"
 Created functions to calculate the mean score
-Got rid of Salary, SalaryType, CurrencySymbol because it complicated the data
-Bin salary
-Write function that checks if examples is empty correctly
-Write max level function
+Got rid of Salary, SalaryType, CurrencySymbol because it complicated the data unnecessarily
+Binned converedSalary
+Wrote function that checks if examples is empty correctly
+Wrote function that limits the number of levels down you can go
+Calculates information content right by using the right level of base
 
 To Do:
 Write visualizer
-Random tree's/bagging (I think that's the name)
+Random trees/bagging (I think that's the name)
+K-Fold testing 
