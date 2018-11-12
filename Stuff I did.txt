@@ -43,8 +43,10 @@ Got rid of all commas in the csv and replaced it with spaces, so in java it does
 Changed Version control "I don't use version control" to "NA"
 Created functions to calculate the mean score
 Got rid of Salary, SalaryType, CurrencySymbol because it complicated the data
+Bin salary
+Write function that checks if examples is empty correctly
+Write max level function
 
 To Do:
 Write visualizer
-Bin salary
-Write function that checks if examples is empty
+Random tree's/bagging (I think that's the name)

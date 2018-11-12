@@ -35,7 +35,6 @@ class Node {
           textSize(10);
           fill(20);
           text(this.name, this.xpos, this.ypos+5);
-          
         }
         else{
           fill(180);

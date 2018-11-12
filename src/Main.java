@@ -21,6 +21,36 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
+		/*
+		//code to test tree printing
+		Tree<String> tree = makeTree("1");
+		
+		Node<String> root = tree.getRoot();
+		
+		Tree<String> two = makeTree("2");
+		two.addToChildren(makeTree("3"), "three");
+		two.addToChildren(makeTree("4"), "four");
+		Tree<String> five = makeTree("5");
+		five.addToChildren(makeTree("6"), "six");
+		five.addToChildren(makeTree("7"), "seven");
+		
+		root.addToChildren(two, "two");
+		root.addToChildren(five, "five");
+		System.out.println(Tree.printTree(root));
+		//tree.print();
+		//seven.print();
+		System.out.println("Program over");
+		*/
+		/*
+		Tree<String> fakeOne = makeTree("1");
+		Tree<String> fakeTwo = makeTree("2");
+		fakeOne.addToChildren(fakeTwo, "Two");
+		fakeTwo.addToChildren(makeTree("3"), "Three");
+		System.out.println(Tree.printTree(fakeOne.getRoot()));
+		*/
+		
+		
+		
 		semicolon.add("DevType");
 		
 		semicolon.add("CommunicationTools");
@@ -50,7 +80,8 @@ public class Main {
 		int pruningLimit = 0;
 		int base = 6;
 		int currLevel = 0;
-		int maxLevel = 4;
+		int maxLevel = 70;
+		
 		/*
 		System.out.println("Please put in the directory of the CSV including filename.csv");
 		System.out.println("For me it is in the directory /Users/Me/A3/dm_a3/data/ID3Data.csv");
@@ -60,8 +91,9 @@ public class Main {
 		System.out.println("a example the tree returns a node with how likely it thinks a patient will go to the appointment)");
 		System.out.println("Don't put any commas in");
 		pruningLimit = reader.nextInt();
-		*/
+		
 		//reader.close();
+		*/
 		
 		//String csvFile = "/Users/billy/Data mining/A3/dm_a3/data/PreProcessedData no unique.csv";
 		//String csvFile = "/Users/billy/Data mining/A3/dm_a3/data/PreProcessedData no unique age.csv";
@@ -108,6 +140,7 @@ public class Main {
 		}
 		
 		semicolonDict = createDict(database);
+		
 		/*
 		for(String x : semicolon)
 		{
