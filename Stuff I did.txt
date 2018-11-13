@@ -57,5 +57,7 @@ K-Fold testing
 To Do:
 Bin salary and others/ bin salary harder
 Install GraphViz
+K-Fold cross validation
+Bagging
 
 Database to use: StackOverflow Binaries NA Changed.csv
