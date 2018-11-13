@@ -1,6 +1,6 @@
 Got rid of columns that deal with assessing job aspects, job benefits, email priorities at the job, AdsAgreeDisagree1, AdsAgreeDisagree2, AdsAgreeDisagree3, AdsActions, AdsPriorities1, AdsPriorities2, AdsPriorities3, AdsPriorities4, AdsPriorities5, AdsPriorities6, AdsPriorities7, questions if you like/recommend/want tools for StackOverflow, surveyTooLong, SurveyEasy
 Got rid of all commas in the csv and replaced it with spaces, so in java it doesn't get messed up
-Replaced things with ; in them with columnName.NA so the code that does preprocessing works; 
+Replaced things with NA in them with columnName.NA so the code that does preprocessing works
 The list for the above is DevType, CommunicationTools, EducationTypes, SelfTaughtTypes, HackathonReasons, LanguageWorkedWith, LanguageDesireNextYear, DatabaseWorkedWith, DatabaseDesireNextYear, PlatformWorkedWith, PlatformDesireNextYear, FrameworkWorkedWith, FrameworkDesireNextYear, IDE, Methodology, VersionControl, AdBlockerReasons, ErgonomicDevices, Gender, SexualOrientation, RaceEthnicity
 Things that had semicolons I made it columnName.NA  . Which does have the weird consequence of making columnName.columnName.NA in the CSV but that's fine because the algorithm will solve this problem
 Changed Version control "I don't use version control" to "NA"
@@ -52,3 +52,10 @@ To Do:
 Write visualizer
 Random trees/bagging (I think that's the name)
 K-Fold testing 
+
+
+To Do:
+Bin salary and others/ bin salary harder
+Install GraphViz
+
+Database to use: StackOverflow Binaries NA Changed.csv
