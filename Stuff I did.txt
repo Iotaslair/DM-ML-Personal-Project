@@ -6,7 +6,39 @@ Things that had semicolons I made it columnName.NA.
 Changed Version control "I don't use version control" to "NA"
 Got rid of Salary, SalaryType, CurrencySymbol because they were making extra commas for some reason throwing everything else off
 Deleted respondent number
-Converted NA for how many montitors to 0
+Bin salary
+Delete .NA from column names
+Replace all Na in number of monitors with Zero
+Converted number of monitors to strings "One", "Two"
+Deleted country because the data isn't very useful (want to make this globally applicable)
+Deleted Currency for similar reason to country
+Move Jobsatisfaction to the last entry
+
+
+
+
+java -cp "C:\Program Files\Weka-3-8\weka.jar" weka.classifiers.trees.J48 -C 1.0E-7 -t "C:\Program Files\Weka-3-8\data\StackOverflow moved satisfaction.arff" -g > "C:\Program Files\Weka-3-8\data\large.dot"
+-o large.png large.dot -Tpng
+
+
+
+if single number classified correctly
+first number is incorrect guesses second is correct guesses
+
+
+
+
+Weka To Do:
+Get visualization to work
+Find papers similar to mine
+Talk about how some people will click through on surveys
+Check if there was an award for finishing the survey
+
+
+
+Database to use: StackOverflow semicolons done fixed NA salary binned fixed numMonitors.csv
+
+
 
 No number = normal
 Name number
@@ -66,16 +98,3 @@ Install GraphViz
 K-Fold cross validation
 ID3
 Bagging
-Find papers similar to mine
-Talk about how some people will click through on surveys
-Check if there was an award for finishing the survey
-
-
-Weka To Do:
-Bin salary
-Delete .NA from column names
-Replace all Na in number of monitors with Zero
-Converted number of monitors to strings "One", "Two"
-
-
-Database to use: StackOverflow semicolons done fixed NA salary binned fixed numMonitors.csv
