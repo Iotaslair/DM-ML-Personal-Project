@@ -12,13 +12,13 @@ Replace all Na in number of monitors with Zero
 Converted number of monitors to strings "One", "Two"
 Deleted country because the data isn't very useful (want to make this globally applicable)
 Deleted Currency for similar reason to country
+Get stats for all trees
 Move Job satisfaction to the last entry
+
 
 Job satisfaction 1.0E-7 confidence interval
 Career satisfaction 1.0E-7 confidence interval
-Ethics choice 1.0E-
- 										FILL IN HERE 
-confidence interval
+Ethics choice 1.0E-7 confidence interval
 
 
 java -cp "C:\Program Files\Weka-3-8\weka.jar" weka.classifiers.trees.J48 -C 1.0E-7 -t "C:\Program Files\Weka-3-8\data\StackOverflow moved satisfaction.arff" -g > "C:\Program Files\Weka-3-8\data\large.dot"
@@ -33,10 +33,8 @@ first number is incorrect guesses second is correct guesses
 
 
 Weka To Do:
-Get stats for all trees
-Decide confidence interval for ethics
+Write paper
 Find papers similar to mine
-Get confusion matrix for everyone
 Talk about how some people will click through on surveys
 Check if there was an award for finishing the survey
 
