@@ -1,0 +1,46 @@
+Job satisfaction
+
+
+
+
+
+Career satisfaction
+
+Correctly Classified Instances       54465               55.0958 %
+Incorrectly Classified Instances     44390               44.9042 %
+Kappa statistic                          0.4324
+Mean absolute error                      0.1372
+Root mean squared error                  0.2626
+Relative absolute error                 67.1457 %
+Root relative squared error             82.1554 %
+Total Number of Instances            98855     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.453    0.066    0.537      0.453    0.491      0.415    0.820     0.418     Extremely satisfied
+                 0.325    0.062    0.263      0.325    0.291      0.239    0.794     0.200     Neither satisfied nor dissatisfied
+                 0.706    0.348    0.444      0.706    0.545      0.324    0.773     0.501     Moderately satisfied
+                 0.080    0.015    0.276      0.080    0.124      0.118    0.800     0.192     Slightly dissatisfied
+                 0.043    0.011    0.377      0.043    0.077      0.088    0.738     0.270     Slightly satisfied
+                 1.000    0.005    0.984      1.000    0.992      0.989    0.997     0.981     NA
+                 0.366    0.044    0.316      0.366    0.339      0.300    0.841     0.239     Moderately dissatisfied
+                 0.320    0.016    0.356      0.320    0.337      0.320    0.855     0.212     Extremely dissatisfied
+Weighted Avg.    0.551    0.118    0.539      0.551    0.514      0.435    0.835     0.505     
+
+=== Confusion Matrix ===
+
+     a     b     c     d     e     f     g     h   <-- classified as
+  6482   610  6561    97    98    59   281   128 |     a = Extremely satisfied
+   148  2054  3063   229   159    90   479    94 |     b = Neither satisfied nor dissatisfied
+  4381  1641 19718   365   458    95   975   293 |     c = Moderately satisfied
+   110  1066  3437   525   164    23  1023   239 |     d = Slightly dissatisfied
+   704  1556  9177   375   579    50   814   229 |     e = Slightly satisfied
+     0     0     3     0     0 22348     0     0 |     f = NA
+   145   570  1761   254    48    32  1924   528 |     g = Moderately dissatisfied
+   106   305   674    57    28    20   588   835 |     h = Extremely dissatisfied
+
+
+
+Ethics choice
+
