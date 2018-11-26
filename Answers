@@ -34,6 +34,16 @@ Weighted Avg.    0.618    0.095    0.606      0.618    0.584      0.530    0.875
    103   935  3240   718   153     0  1729   179 |     g = Slightly dissatisfied
     60   602   537    90    65     4   245   879 |     h = Extremely dissatisfied
 
+Take aways 
+The biggest factor is if you use a communication tool 
+From there the biggest factor in determining the satisfaction is how satisfied you are with your career
+After that the biggest factor is the type of employment you have (full time, part time, free lancer)
+In general if you're unsatisfied with your career you're unsatisfied with your job
+Things to note that don't show up, Age, IDE, language rarely shows up, Open source, If you code as a hobby, how long you've been coding for, wakeTime, hoursComputer, skipMeals, exercise, race rarely (usually used to split off a few people)
+
+
+
+
 
 
 Career Satisfaction
@@ -72,6 +82,12 @@ Weighted Avg.    0.551    0.118    0.539      0.551    0.514      0.435    0.835
    145   570  1761   254    48    32  1924   528 |     g = Moderately dissatisfied
    106   305   674    57    28    20   588   835 |     h = Extremely dissatisfied
 
+Take aways
+Once again if you're using a communication tool matters a lot      (I think this applys to your current job and not all communication tools you used ever "Which of the following tools do you use to communicate, coordinate, or share knowledge with your coworkers? Please select all that apply." that's how the question was phrased)
+	From there if you're using a communcation tool then the biggest factor is jobSatisfaction
+		For the job satisfaction part of the tree it basically chose if your were satisfied with your job then you're satisfied with your career (there were some splits on some branches but they were to get some minor accuracy improvements)
+	From there if you're not using a communication tool then the biggest factor is what you hope to be doing in the next 5 years	(I have a feeling the tree chose this attribute because it splits the tree into a lot of sub trees, not because of some underlying relationship)
+		For the HopeFiveYears part of the tree it split on job satisfaction 5/8 times in general when it split on not job satisfaction things the examples left there were usually < 500 examples, while the ones that split on job satisfaction range from 1,000 to 24,000 (the survey covered 100,000 participants)
 
 
 
@@ -102,6 +118,20 @@ Weighted Avg.    0.743    0.162    0.734      0.743    0.715      0.602    0.843
  17475  8214    68   174 |     b = Depends on what it is
     61    27 27985     0 |     c = NA
   1910  1014    17   469 |     d = Yes
+
+Take aways
+Split on EthicalImplementations 
+	If you think that you should care about the software you write then it's likely you won't write unethical software, however this isn't always the case, it got 55,000 examples wrong here and 19,000 right. Which I find very interesting because it leads itself towards saying when push comes to shove people don't always follow their principles. In the confusion matrix it shows that generally it classified "Depends on what it is" as "No" which means that the things that the tree guessed as "No" turned out to be "Depends on what it is"
+	If you chose "Unsure/I don't know" for EthicalImplementations then you're likely to say "Depends on what it is" for Ethics Choice
+	If you chose "No" for EthicalImplementations which means "I do not have a obligation to consider the ethical implementations of the code I write" then the tree splits on EthicsReport 
+		In general if you report what the company is asking you to do then you won't write the software
+		In general if you're unsure about reporting then you're unsure about writing the software
+		In general if you're not going to report then you'll write the software. 
+
+
+
+
+
 
 
 

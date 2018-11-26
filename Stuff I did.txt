@@ -33,6 +33,7 @@ first number is incorrect guesses second is correct guesses
 
 
 Weka To Do:
+Re run things in weka
 Write paper
 Find papers similar to mine
 Talk about how some people will click through on surveys
