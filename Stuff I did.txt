@@ -20,8 +20,8 @@ Ethics choice 1.0E-7 confidence interval
 
 
 
-java -cp "C:\Program Files\Weka-3-8\weka.jar" weka.classifiers.trees.J48 -C .000122070313 -t "C:\Program Files\Weka-3-8\data\StackOverflow career satisfaction.arff" -g > "C:\Program Files\Weka-3-8\data\career000122070313.dot"
-dot -o career000122070313.png career000122070313.dot -Tpng
+java -cp "C:\Program Files\Weka-3-8\weka.jar" weka.classifiers.trees.J48 -C .00001 -t "C:\Program Files\Weka-3-8\data\StackOverflow moved satisfaction deleted career.arff" -g > "C:\Program Files\Weka-3-8\data\noCareer.dot"
+dot -o noCareer.png noCareer.dot -Tpng
 
 total/wrong
 
@@ -32,22 +32,12 @@ first number is incorrect guesses second is correct guesses
 
 
 Weka To Do:
-Redo career because overfitting
-Redo graph in career
-Write results for ethics
 Talk about accuracy of models
-Write abstract
-Talk about K-fold testing
-Talk about Confidence Factor
-Talk about Future research, find out what type people have low career satisfaction but have high job satisfaction and vice versa
 
+Edit abstract
 
-Play around with confidence factor
 Write paper
 Find papers similar to mine
-Talk about how some people will click through on surveys
-Check if there was an award for finishing the survey
-upload trees to drive
 
 https://files.eric.ed.gov/fulltext/ED099485.pdf
 

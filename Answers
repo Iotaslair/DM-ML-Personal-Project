@@ -183,8 +183,10 @@ Weighted Avg.    0.620    0.095    0.606      0.620    0.586      0.532    0.876
 Career satisfaction
 
 1E-6	55.1120 %
-1E-7
-1E-8
+5E-7	55.1252 %
+1E-7	55.0958 %
+5E-8	54.9734 %
+1E-8	Doesn't work
 
 
 1/2^4:
@@ -256,9 +258,34 @@ Ethics
 1/2^12: 74.3149 %			74.4484 %
 1/2^13: 74.3149 %			74.4242 %
 1/2^14: 74.3200 %	winner	74.3554 % winner because of overfitting
-1/2^15: 74.3190 %			
-1/2^16: 74.3169 %			
+1/2^15: 74.3190 %			74.3078 %
+1/2^16: 74.3169 %			74.3078 %
 1/2^17: 
 1/2^18: 
 1/2^19: 74.3169 %
 
+Correctly Classified Instances       73504               74.3554 %
+Incorrectly Classified Instances     25351               25.6446 %
+Kappa statistic                          0.6017
+Mean absolute error                      0.1742
+Root mean squared error                  0.2954
+Relative absolute error                 51.7289 %
+Root relative squared error             71.9754 %
+Total Number of Instances            98855     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.891    0.341    0.654      0.891    0.754      0.549    0.802     0.649     No
+                 0.313    0.071    0.610      0.313    0.414      0.312    0.755     0.494     Depends on what it is
+                 0.997    0.003    0.993      0.997    0.995      0.993    0.997     0.991     NA
+                 0.139    0.004    0.543      0.139    0.221      0.263    0.763     0.195     Yes
+Weighted Avg.    0.744    0.162    0.735      0.744    0.715      0.603    0.844     0.690     
+
+=== Confusion Matrix ===
+
+     a     b     c     d   <-- classified as
+ 36932  4184   108   217 |     a = No
+ 17568  8114    68   181 |     b = Depends on what it is
+    67    21 27985     0 |     c = NA
+  1936   984    17   473 |     d = Yes
